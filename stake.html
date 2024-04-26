@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stake Calculator</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #333;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .container {
+        width: 400px;
+        background-color: #222;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    }
+
+    h2 {
+        text-align: center;
+        color: #fff;
+    }
+
+    label {
+        font-weight: bold;
+        color: #ccc;
+    }
+
+    input[type="text"], input[type="number"] {
+        width: calc(100% - 20px);
+        padding: 10px;
+        margin: 8px 0;
+        border: 1px solid #555;
+        border-radius: 4px;
+        box-sizing: border-box;
+        background-color: #444;
+        color: #eee;
+    }
+
+    button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 12px 0;
+        margin-top: 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        width: 100%;
+        transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #45a049;
+    }
+
+    #output {
+        margin-top: 20px;
+        padding: 20px;
+        border: 1px solid #555;
+        border-radius: 8px;
+        background-color: #444;
+        text-align: center;
+        box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+    }
+
+    .output-label {
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #ccc;
+    }
+
+    .output-value {
+        font-size: 22px;
+        margin-bottom: 15px;
+        color: #eee;
+    }
+
+    .result-section {
+        margin-top: 20px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .result-item {
+        flex: 1;
+        padding: 10px;
+        border-radius: 8px;
+        background-color: #333;
+        box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+    }
+
+    .result-title {
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #ccc;
+    }
+
+    .result-value {
+        font-size: 18px;
+        color: #eee;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Stake Calculator</h2>
+    <label for="team1">Enter Team 1:</label>
+    <input type="text" id="team1" placeholder="Team 1" onkeydown="moveToNext(event, 'team2')">
+
+    <label for="team2">Enter Team 2:</label>
+    <input type="text" id="team2" placeholder="Team 2" onkeydown="moveToNext(event, 'ratio1')">
+
+    <label for="ratio1">Enter Team 1 Ratio:</label>
+    <input type="number" id="ratio1" placeholder="Ratio 1" step="0.5" onkeydown="moveToNext(event, 'ratio2')">
+
+    <label for="ratio2">Enter Team 2 Ratio:</label>
+    <input type="number" id="ratio2" placeholder="Ratio 2" step="0.5" onkeydown="moveToNext(event, 'calculate')">
+
+    <button onclick="calculate()">Calculate</button>
+
+    <div id="output"></div>
+</div>
+
+<script>
+    function moveToNext(event, nextInputId) {
+        if (event.keyCode === 13) { // Enter key
+            event.preventDefault();
+            document.getElementById(nextInputId).focus();
+        }
+    }
+
+    function calculate() {
+        var team1 = document.getElementById('team1').value;
+        var team2 = document.getElementById('team2').value;
+        var ratio1 = parseFloat(document.getElementById('ratio1').value);
+        var ratio2 = parseFloat(document.getElementById('ratio2').value);
+
+        var result1 = 1999.80 / ratio1;
+        var result2 = 1999.80 / ratio2;
+        var totalInvestment = result1 + result2;
+        var loss = 1999.80 - result1 - result2;
+        var profit = 4000 - result1 - result2;
+
+        var output = "<div class='output-label'>" + team1 + " Team:</div>" +
+                     "<div class='output-value'>" + result1.toFixed(1) + "</div>" +
+                     "<div class='output-label'>" + team2 + " Team:</div>" +
+                     "<div class='output-value'>" + result2.toFixed(1) + "</div>";
+
+        document.getElementById('output').innerHTML = output;
+
+        var resultSection = "<div class='result-section'>" +
+                            "<div class='result-item'>" +
+                            "<div class='result-title'>Total Investment</div>" +
+                            "<div class='result-value'>" + totalInvestment.toFixed(1) + "</div>" +
+                            "</div>" +
+                            "<div class='result-item'>" +
+                            "<div class='result-title'>Loss</div>" +
+                            "<div class='result-value'>" + loss.toFixed(1) + "</div>" +
+                            "</div>" +
+                            "<div class='result-item'>" +
+                            "<div class='result-title'>Profit</div>" +
+                            "<div class='result-value'>" + profit.toFixed(1) + "</div>" +
+                            "</div>" +
+                            "</div>";
+
+        document.getElementById('output').innerHTML += resultSection;
+    }
+</script>
+
+</body>
+</html>
